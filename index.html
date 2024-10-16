@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pintamos por Ti</title>
+    <link rel="icon" href="imagen/logo.png" type="image/x-icon"> <!-- Cambia 'favicon.ico' por el nombre de tu archivo -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        header img {
+            width: 50px; /* Ajusta el tamaño del logo según lo necesites */
+            margin-right: 10px;
+        }
+        h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        .tab {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tab button {
+            background-color: #b3e5fc;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+        .tab button:hover {
+            background-color: #81d4fa;
+        }
+        .tab button.active {
+            background-color: #81d4fa;
+        }
+        .calculator {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="imagen/logo.png" alt="Logo de Pintamos por Ti"> <!-- Reemplaza 'logo.png' con el nombre de tu logo -->
+    <h1><i class="fas fa-paint-brush"></i> Pintamos por Ti</h1>
+</header>
+
+<div class="tab">
+    <button class="active" onclick="showTab('interior')">Interior</button>
+    <button onclick="showTab('exterior')">Exterior</button>
+</div>
+
+<div class="calculator">
+    <div id="interior" class="tab-content" style="display: block;">
+        <h2>Pintado Interior</h2>
+        <p>Introduce los metros cuadrados (sin descontar marcos de puertas ni ventanas):</p>
+        <input type="number" id="interior-m2" placeholder="Metros cuadrados" min="0">
+        <button onclick="calculate('interior')">Calcular</button>
+    </div>
+
+    <div id="exterior" class="tab-content" style="display: none;">
+        <h2>Pintado Exterior</h2>
+        <p>Introduce los metros cuadrados (sin descontar marcos de puertas ni ventanas):</p>
+        <input type="number" id="exterior-m2" placeholder="Metros cuadrados" min="0">
+        <button onclick="calculate('exterior')">Calcular</button>
+    </div>
+</div>
+
+<div class="result" id="result"></div>
+<button id="copy-btn" style="display: none;" onclick="copyToClipboard()">Copiar al portapapeles</button>
+
+<footer>
+    <p>Todos los derechos reservados &copy; Francisco Vega</p>
+</footer>
+
+<script>
+    function showTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.style.display = 'none';
+        });
+        document.getElementById(tab).style.display = 'block';
+        
+        document.querySelectorAll('.tab button').forEach(button => {
+            button.classList.remove('active');
+        });
+        document.querySelector(`.tab button[onclick*="${tab}"]`).classList.add('active');
+    }
+
+    function calculate(type) {
+        const m2 = document.getElementById(`${type}-m2`).value;
+        let price = 0;
+        
+        if (type === 'interior') {
+            price = m2 * 60;
+        } else {
+            price = m2 * 80;
+        }
+        
+        document.getElementById('result').innerText = `El costo es: $${price} pesos (no incluye pintura).`;
+        document.getElementById('copy-btn').style.display = 'inline';
+    }
+
+    function copyToClipboard() {
+        const resultText = document.getElementById('result').innerText;
+        navigator.clipboard.writeText(resultText).then(() => {
+            alert('Resultado copiado al portapapeles!');
+        });
+    }
+</script>
+
+</body>
+</html>

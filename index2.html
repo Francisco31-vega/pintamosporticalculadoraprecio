@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Pintura</title>
+    <link rel="icon" href="imagen2/favicon.ico.ico" type="image/x-icon"> <!-- Cambia "favicon.ico" por el nombre de tu archivo de logo -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e3f2fd; /* Azul bajito */
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 50px; /* Ajusta el tamaño del logo */
+            vertical-align: middle; /* Alineación vertical */
+        }
+        form {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>
+        <img src="imagen2/icono.jpg" alt="Logo" class="logo"> <!-- Cambia "logo.png" por el nombre de tu archivo de imagen -->
+        Calculadora de Pintura
+    </h1>
+    <p>Calcula cuántos litros de pintura necesitas.</p>
+</header>
+
+<form id="calculadora">
+    <label for="m2">Metros cuadrados (m²):</label>
+    <input type="number" id="m2" required placeholder="Ingresa los m²" step="0.01">
+
+    <button type="submit">Calcular Litros</button>
+</form>
+
+<div id="resultado"></div>
+
+<script>
+    const m2PorLitro = 3.6;
+
+    document.getElementById('calculadora').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const metrosCuadrados = parseFloat(document.getElementById('m2').value);
+        const litrosNecesarios = metrosCuadrados / m2PorLitro;
+
+        document.getElementById('resultado').innerHTML = `
+            <h2>Resultado</h2>
+            <p>Necesitarás aproximadamente <strong>${litrosNecesarios.toFixed(2)}</strong> litros de pintura.</p>
+        `;
+    });
+</script>
+
+</body>
+</html>
